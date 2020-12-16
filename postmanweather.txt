@@ -1,0 +1,47 @@
+pm.test("Status code is 200", function () {
+  pm.response.to.have.status(200);
+});
+
+pm.test("weather id test 500", function() {
+    const jsonData = pm.response.json();
+	const responseJson = pm.response.json();
+	var x = responseJson.list;
+    var y = x.length
+    for(var i=0;i<y;i++){
+        if(jsonData.list[i].weather[0].id==500){
+            pm.expect(jsonData.list[i].weather[0].description).to.eql("light rain")
+            //console.log(jsonData.list[i].weather[0].description)
+        }      
+   }   
+});
+
+pm.test("weather id test 800", function() {
+    const jsonData = pm.response.json();
+	const responseJson = pm.response.json();
+	var x = responseJson.list;
+    var y = x.length
+    for(var i=0;i<y;i++){
+        if(jsonData.list[i].weather[0].id==800){
+            pm.expect(jsonData.list[i].weather[0].description).to.eql("clear sky")
+           // console.log(jsonData.list[i].weather[0].description)
+        }       
+   }   
+});
+pm.test("temperature TEST", function() {
+    const jsonData = pm.response.json();
+	const responseJson = pm.response.json();
+	var x = responseJson.list;
+    var y = x.length
+    for(var i=0;i<x;i++){        
+        var tempM = jsonData.list[i].main.temp;
+		var tempMin = jsonData.list[i].main.temp_min;
+		var tempMax = jsonData.list[i].main.temp_max;
+		var count=0;
+		if(tempM>tempMin && tempM<tempMax){
+			count++
+			console.log("found"+cc);
+       }
+   }   
+    if(count!=y)
+        console.log("nothing found")        
+});
